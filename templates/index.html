@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Battery Cell Information</title>
+    <link rel="stylesheet" href={{ url_for('static', filename='css/style.css') }}>
+</head>
+<body>
+    <nav>
+        <h1>Add New Battery</h1>
+        <button onclick="window.location.href='/all_batteries'">View All Batteries</button>
+    </nav>
+    <div class="section">
+    {% if message %}
+        <p class={%if success %}  'success' {%else%} 'error'{%endif%}>{{ message }}</p>
+    {% endif %}
+    {% if image %}
+        <p>Your battery's image is:</p>
+        <img src="{{ url_for('static', filename=image) }}" alt="Battery Image" class="battery-img">
+    {% endif %}
+    {% if barcode %}
+        <p>Your battery's generated barcode is:</p>
+        <img src="{{ url_for('static', filename=barcode) }}" alt="Barcode" class="barcode-img">
+    {% endif %}
+    <p>Fill in the form below to add a new battery to the database.</p>
+    <form action="/upload-battery-info" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Battery Image:</legend>
+            <label for="file">Choose a file</label>
+            <input type="file" name="file" id="file" accept="image/*">
+        </fieldset>
+        <fieldset>
+            <legend>Battery Meta Information:</legend>
+            <label for="cell-condition">Cell Condition:</label>
+            <select name="cell-condition" id="cell-condition">
+                <option value="new">New</option>
+                <option value="recycled">Recycled</option>
+            </select>
+            <label for="manufacturer">Manufacturer:</label>
+            <input type="text" name="manufacturer" id="manufacturer" value="Molicel">
+            <label for="model">Model:</label>
+            <input type="text" name="model" id="model" value="INR21700-P45B">
+            <label for="type">Type:</label>
+            <input type="text" name="type" id="type" value="Li-ion">
+            <label for="form-factor">Form Factor:</label>
+            <input type="text" name="form-factor" id="form-factor" value="Cylindrical-21700">
+            <label for="mass">Mass (g):</label>
+            <input type="number" name="mass" id="mass" value="70">
+            <label for="height" >Height (mm):</label>
+            <input type="number" name="height" id="height" value="70.15">
+            <label for="diameter">Diameter (mm):</label>
+            <input type="number" name="diameter" id="diameter" value="21.55">
+            <label for="volume">Volume (cm<sup>3</sup>):</label>
+            <input type="number" name="volume" id="volume" value="25.59">
+        </fieldset>
+        <fieldset>
+            <legend>Battery Electrical Parameters:</legend>
+            <label for="nominal-voltage">Nominal Voltage (V):</label>
+            <input type="number" name="nominal-voltage" id="nominal-voltage" value="3.6">
+            <label for="nominal-energy">Nominal Energy (Wh):</label>
+            <input type="number" name="nominal-energy" id="nominal-energy" value="12.6">
+            <label for="nominal-charge-capacity">Nominal Charge Capacity (Ah):</label>
+            <input type="number" name="nominal-charge-capacity" id="nominal-charge-capacity" value="4.5">
+            <label for="voltage-range">Voltage Range (V):</label>
+            <input type="text" name="voltage-range" id="voltage-range" value="2.5-4.2">
+            <label for="current-continuous">Continuous Discharge Current (A):</label>
+            <input type="number" name="current-continuous" id="current-continuous" value="45">
+            <label for="peak-current">Peak Discharge Current (A):</label>
+            <input type="number" name="peak-current" id="peak-current" value="50">
+            <label for="power-continuous">Continuous Discharge Power (W):</label>
+            <input type="number" name="power-continuous" id="power-continuous" value="162">
+            <label for="power-peak">Peak Discharge Power (W):</label>
+            <input type="number" name="power-peak" id="power-peak" value="180">
+            <label for="energy-density-galvanmetric">Energy Density (Wh/kg) - Galvanmetric:</label>
+            <input type="number" name="energy-density-galvanmetric" id="energy-density-galvanmetric" value="180">
+            <label for="energy-density-volumetric">Energy Density (Wh/L) - Volumetric:</label>
+            <input type="number" name="energy-density-volumetric" id="energy-density-volumetric" value="700">
+            <label for="power-density-galvanmetric">Power Density (W/kg) - Galvanmetric:</label>
+            <input type="number" name="power-density-galvanmetric" id="power-density-galvanmetric" value="2500">
+            <label for="power-density-volumetric">Power Density (W/L) - Volumetric:</label>
+            <input type="number" name="power-density-volumetric" id="power-density-volumetric" value="10000">
+        </fieldset>
+
+        <button type="submit">Upload Data</button>
+    </form>
+    </div>
+</body>
+</html>

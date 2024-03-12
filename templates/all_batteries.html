@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Battery Cell Information</title>
+    <link rel="stylesheet" href={{ url_for('static', filename='css/style.css')
+    }}>
+  </head>
+  <body>
+    <nav>
+      <h1>
+        All Batteries <span> ( Click on the cell to view the details )</span>
+      </h1>
+      <button onclick="window.location.href='/'">Add Battery</button>
+    </nav>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">S.No.</th>
+          <th scope="col">Cell Id</th>
+          <th scope="col">Image</th>
+          <th scope="col">Barcode</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if cells|length == 0 %}
+        <tr>
+          <td colspan="4">No Batteries found</td>
+        </tr>
+        {% else %} {% for cell in cells %}
+        <tr onclick="window.location.href='/battery/{{ cell.cell_id }}'">
+          <th scope="row">{{ loop.index }}</th>
+          <td>{{ cell.cell_id }}</td>
+          <td>
+            <img
+              src="{{ url_for('static', filename=cell.image) }}"
+              alt="cell image"
+              class="table-battery-img"
+            />
+          </td>
+          <td>
+            <img
+              src="{{ url_for('static', filename=cell.barcode) }}"
+              alt="barcode"
+              class="table-barcode-img"
+            />
+          </td>
+        </tr>
+        {% endfor %} {% endif %}
+      </tbody>
+    </table>
+  </body>
+</html>

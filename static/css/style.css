@@ -1,0 +1,215 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 10px 20px;
+  padding: 10px 20px;
+  height: 100vh;
+  width: 100wh;
+  overflow: auto;
+}
+
+nav {
+  background-color: #eeeeee;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: black;
+  padding: 10px 20px;
+  position: sticky;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  height: 50px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.battery-img {
+  width: 300px;
+  height: auto;
+  background-size: cover;
+  background-position: center;
+}
+
+.success {
+  color: green;
+}
+
+.error {
+  color: red;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #eeeeee;
+  margin: 20px 0;
+}
+
+.table th,
+.table td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table th {
+  font-weight: bold;
+}
+
+.table tr:hover {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.table-battery-img {
+  width: 100px;
+  height: auto;
+  background-size: cover;
+  background-position: center;
+}
+
+.table-barcode-img {
+  width: 200px;
+  height: auto;
+  background-size: cover;
+  background-position: center;
+}
+
+fieldset {
+  margin: 20px 0;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+legend {
+  font-weight: bold;
+  font-size: 20px;
+}
+
+input,
+select {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.data-1 {
+  display: flex;
+  justify-content: space-between;
+  align-items: top;
+}
+
+.barcode {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.upload-csv {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.submit-csv {
+  padding: 10px 20px;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  height: 40px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: 40%;
+  margin-top: 20px;
+}
+
+.plot {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin: 20px 0;
+}
+
+.plot-img {
+  width: 70%;
+  height: auto;
+  background-size: cover;
+  background-position: center;
+}
+.battery {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
+.battery-top {
+  border-top: 1px solid #ccc;
+  width: 30px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: #3c3c3c;
+}
+
+.battery-cell {
+  width: 100px;
+  height: 200px;
+  background-color: #4caf50;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  position: relative;
+}
+
+/* make level like wave on top */
+.battery-level {
+  width: 100%;
+  background-color: #9e951d;
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  bottom: 0;
+  text-align: center;
+  font-size: 12px;
+  color: white;
+  font-weight: bold;
+}
+
+/* battery text */
+
+.battery-data {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  width: 200px;
+}
+
+.battery-text {
+  margin: 0;
+  padding: 5px 0;
+  font-size: 14px;
+  line-height: 1.4;
+  color: #333;
+}
+
+.battery-text:first-child {
+  font-weight: bold;
+}
+
+.battery-text:last-child {
+  color: #666;
+  font-style: italic;
+}

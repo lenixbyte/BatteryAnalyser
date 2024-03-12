@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Battery Cell Information</title>
+    <link rel="stylesheet" href={{ url_for('static', filename='css/style.css')
+    }}>
+  </head>
+  <body>
+    <nav>
+      <h1>Battery <span>Id: {{cell.cell_id}}</span></h1>
+      <button onclick="window.location.href='/all_batteries'">
+        View All Batteries
+      </button>
+    </nav>
+    <div class="container">
+      <div class="data-1">
+        <div class="image">
+          <h2>Cell Image</h2>
+          <img src={{ url_for('static', filename=cell.image) }} alt="Battery
+          Image" class="battery-img">
+        </div>
+        {% if report_generated %}
+        <div class="life">
+          <h2>Battery Life</h2>
+          <div class="battery">
+            <div class="battery-top"></div>
+            <div class="battery-cell">
+              <div class="battery-level"></div>
+            </div>
+            <div class="battery-data">
+              <p class="battery-text"></p>
+              <p class="battery-text"></p>
+            </div>
+          </div>
+        </div>
+        {% endif %}
+        <div class="barcode">
+          <h2>Cell Barcode</h2>
+          <img src={{ url_for('static', filename=cell.barcode) }} alt="Battery
+          Barcode" class="barcode-img">
+          <div>
+            <h2>Upload Data (CSV)</h2>
+            <form
+              class="upload-csv"
+              action="/battery/generate_report"
+              method="post"
+              enctype="multipart/form-data"
+            >
+              <input type="hidden" name="cell_id" value="{{cell.cell_id}}" />
+              <input
+                type="file"
+                name="file"
+                id="file"
+                class="inputfile"
+                accept=".csv"
+              />
+              <input type="submit" value="Upload" class="submit-csv" />
+            </form>
+            {% if message %}
+            <div class="success">{{ message }}</div>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+      {% if report_generated %}
+      <h2>Cell Plot Information</h2>
+      <div class="plot">
+        <img src={{ url_for('static' , filename=cell.plot )}} class="plot-img">
+      </div>
+      <h2>Circuit Information</h2>
+      <div><img src={{ url_for('static' , filename=cell.circuit )}} /></div>
+      {% if cell.parameters %}
+      <h3>Parameters</h3>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Parameter</th>
+            <th>Value</th>
+            <th>Explanation</th>
+            <th>Visual Indicator</th>
+          </tr>
+        </thead>
+        {% for parameter in cell.parameters %}
+        <tr>
+          <td>{{loop.index}}</td>
+          <td>{{parameter['name']}} ({{parameter['unit']}})</td>
+          <td>{{parameter['value']}}</td>
+          <td>{{parameter['explanation']}}</td>
+          <td>
+            <img src={{ url_for('static', filename=parameter['source']) }}
+            alt="Visual Indicator" class="visual-indicator">
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+      {% endif %} {% endif %}
+      <div class="data">
+        <h2>Cell Information</h2>
+        <table class="table">
+          <tr>
+            <td><b>Cell Condition</b></td>
+            <td>{{cell['data']['cell-condition']}}</td>
+          </tr>
+          <tr>
+            <td><b>Manufacturer</b></td>
+            <td>{{cell['data']['manufacturer']}}</td>
+          </tr>
+          <tr>
+            <td><b>Model</b></td>
+            <td>{{cell['data']['model']}}</td>
+          </tr>
+          <tr>
+            <td><b>Type</b></td>
+            <td>{{cell['data']['type']}}</td>
+          </tr>
+          <tr>
+            <td><b>Form Factor</b></td>
+            <td>{{cell['data']['form-factor']}}</td>
+          </tr>
+          <tr>
+            <td><b>Mass (g)</b></td>
+            <td>{{cell['data']['mass']}}</td>
+          </tr>
+          <tr>
+            <td><b>Height (mm)</b></td>
+            <td>{{cell['data']['height']}}</td>
+          </tr>
+          <tr>
+            <td><b>Diameter (mm)</b></td>
+            <td>{{cell['data']['diameter']}}</td>
+          </tr>
+          <tr>
+            <td><b>Volume (cm<sup>3</sup>)</b></td>
+            <td>{{cell['data']['volume']}}</td>
+          </tr>
+          <tr>
+            <td><b>Nominal Voltage (V)</b></td>
+            <td>{{cell['data']['nominal-voltage']}}</td>
+          </tr>
+          <tr>
+            <td><b>Nominal Energy (Wh)</b></td>
+            <td>{{cell['data']['nominal-energy']}}</td>
+          </tr>
+          <tr>
+            <td><b>Nominal Charge Capacity (Ah)</b></td>
+            <td>{{cell['data']['nominal-charge-capacity']}}</td>
+          </tr>
+          <tr>
+            <td><b>Voltage Range (V)</b></td>
+            <td>{{cell['data']['voltage-range']}}</td>
+          </tr>
+          <tr>
+            <td><b>Continuous Current (A)</b></td>
+            <td>{{cell['data']['current-continuous']}}</td>
+          </tr>
+          <tr>
+            <td><b>Peak Current (A)</b></td>
+            <td>{{cell['data']['peak-current']}}</td>
+          </tr>
+          <tr>
+            <td><b>Continuous Power (W)</b></td>
+            <td>{{cell['data']['power-continuous']}}</td>
+          </tr>
+          <tr>
+            <td><b>Peak Power (W)</b></td>
+            <td>{{cell['data']['power-peak']}}</td>
+          </tr>
+          <tr>
+            <td><b>Energy Density (Wh/kg)</b></td>
+            <td>{{cell['data']['energy-density-galvanmetric']}}</td>
+          </tr>
+          <tr>
+            <td><b>Energy Density (Wh/L)</b></td>
+            <td>{{cell['data']['energy-density-volumetric']}}</td>
+          </tr>
+          <tr>
+            <td><b>Power Density (W/kg)</b></td>
+            <td>{{cell['data']['power-density-galvanmetric']}}</td>
+          </tr>
+          <tr>
+            <td><b>Power Density (W/L)</b></td>
+            <td>{{cell['data']['power-density-volumetric']}}</td>
+          </tr>
+        </table>
+      </div>
+      <script>
+         function updateBatteryLevel(level) {
+           level = Math.min(100, Math.max(0, level));
+           let batteryLevelElement = document.querySelector('.battery-level');
+           batteryLevelElement.style.height = level + '%';
+         }
+
+         function calculateSoc(currentRb) {
+           let maxRb = 0.02;
+           let soc = ((currentRb / maxRb) * 100).toFixed(2);
+           return soc;
+         }
+
+         function degradedPercentage(soc){
+           return (100-soc).toFixed(2);
+         }
+
+         function updateBatteryDegradedPercentage(){
+           let cell = {{ cell | tojson | safe }};
+           if(cell['parameters'][0]['value']){
+                   document.getElementsByClassName('battery-level')[0].innerHTML = degradedPercentage(calculateSoc(cell['parameters'][0]['value'])) + '% (Degraded)';
+                   document.getElementsByClassName('battery-text')[1].innerHTML = 'Degraded Percentage: '+ degradedPercentage(calculateSoc(cell['parameters'][0]['value'])) + '%';
+                   document.getElementsByClassName('battery-text')[0].innerHTML = 'SOH Percentage: '+ calculateSoc(cell['parameters'][0]['value']) + '%';
+
+                   let batteryLevel = degradedPercentage(calculateSoc(cell['parameters'][0]['value']));
+                   updateBatteryLevel(batteryLevel);
+               }
+           }
+
+        window.onload = updateBatteryDegradedPercentage;
+      </script>
+    </div>
+  </body>
+</html>
